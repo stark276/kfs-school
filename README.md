@@ -3,29 +3,33 @@
 
 ## Getting Started
 
-1. ```bash
+``` bash
 $ git clone https://github.com/AcidicNic/KFS-School.git
 ```
-1. ```bash
+
+``` bash
 $ python3 -m venv .venv
 ```
-1. ```bash
+
+``` bash
 $ source .venv/bin/activate
 ```
-1. ```bash
+
+``` bash
 $ pip3 install -r requirements.txt
 ```
-1. ```bash
+
+``` bash
 $ cd KFS_School
 ```
-1. ```bash
+
+``` bash
 $ touch .env
 ```
-    - Inside .env define your [secret key](https://miniwebtool.com/django-secret-key-generator/) like this:
-    - ```bash
-    SECRET_KEY=some_random_key
-    ```
+- Inside .env define your [secret key](https://miniwebtool.com/django-secret-key-generator/) like this:
 
-1. ```bash
+- ```SECRET_KEY=some_random_key```
+
+``` bash
 $ python3 manage.py runserver
 ```
