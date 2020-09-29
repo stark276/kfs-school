@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import ModelForm, BaseInlineFormSet
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from django.forms.utils import ValidationError
@@ -39,7 +40,9 @@ class StudentSignUpForm(UserCreationForm):
         return user
 
 
-class StudentInterestsForm(forms.ModelForm):
+# class StudentInterestsForm(forms.ModelForm):
+class StudentInterestsForm(ModelForm):
+
     class Meta:
         model = Student
         fields = ('interests', )
@@ -48,13 +51,16 @@ class StudentInterestsForm(forms.ModelForm):
         }
 
 
-class QuestionForm(forms.ModelForm):
+# class QuestionForm(forms.ModelForm):
+class QuestionForm(ModelForm):
+
     class Meta:
         model = Question
         fields = ('text', )
 
 
-class BaseAnswerInlineFormSet(forms.BaseInlineFormSet):
+# class BaseAnswerInlineFormSet(forms.BaseInlineFormSet):
+class BaseAnswerInlineFormSet(BaseInlineFormSet):
     def clean(self):
         super().clean()
 
@@ -68,7 +74,8 @@ class BaseAnswerInlineFormSet(forms.BaseInlineFormSet):
             raise ValidationError('Mark at least one answer as correct.', code='no_correct_answer')
 
 
-class TakeQuizForm(forms.ModelForm):
+# class TakeQuizForm(forms.ModelForm):
+class TakeQuizForm(ModelForm):
     answer = forms.ModelChoiceField(
         queryset=Answer.objects.none(),
         widget=forms.RadioSelect(),
