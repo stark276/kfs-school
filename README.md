@@ -9,13 +9,13 @@ $ git clone https://github.com/AcidicNic/KFS-School.git
 
 To create a branch:
 
-- ``` bash
+``` bash
 $ git switch -c branch_name
 ```
 
 To switch to an existing branch:
 
-- ``` bash
+``` bash
 $ git switch branch_name
 ```
 
@@ -52,8 +52,8 @@ $ python3 manage.py runserver
 
 - If you installed any pip packages:
 
- - Make sure you're using your virtualenv
+ - Make sure you're using your virtualenv, then run:
 
- - ``` bash
+``` bash
 $ pip3 freeze > requirements.txt
 ```
