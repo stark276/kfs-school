@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'crispy_forms',
 
     'classroom',
+    'embed_video',
 ]
 
 MIDDLEWARE = [
@@ -97,6 +98,10 @@ DATABASES = {
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
+
+EMBED_VIDEO_BACKENDS = (
+    'embed_video.backends.YoutubeBackend',
+)
 
 LANGUAGE_CODE = 'en-us'
 

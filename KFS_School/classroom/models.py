@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.html import escape, mark_safe
+from embed_video.fields import EmbedVideoField
 
 
 class User(AbstractUser):
@@ -30,7 +31,6 @@ class Quiz(models.Model):
     def __str__(self):
         return self.name
 
-
 class Question(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='questions')
     text = models.CharField('Question', max_length=255)
@@ -38,6 +38,13 @@ class Question(models.Model):
     def __str__(self):
         return self.text
 
+class Video(models.Model):
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='videos')
+    url = EmbedVideoField() # same like models.URLField()
+    
+    def __str__(self):
+        return self.url
+ 
 
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
@@ -75,3 +82,4 @@ class StudentAnswer(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='quiz_answers')
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name='+')
 
+  

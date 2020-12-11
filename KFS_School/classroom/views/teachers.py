@@ -11,8 +11,8 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   UpdateView)
 
 from ..decorators import teacher_required
-from ..forms import BaseAnswerInlineFormSet, QuestionForm, TeacherSignUpForm
-from ..models import Answer, Question, Quiz, User
+from ..forms import BaseAnswerInlineFormSet, QuestionForm, TeacherSignUpForm, VideoForm
+from ..models import Answer, Question, Quiz, User, Video
 
 
 class TeacherSignUpView(CreateView):
@@ -57,6 +57,8 @@ class QuizCreateView(CreateView):
         quiz.save()
         messages.success(self.request, 'The quiz was created with success! Go ahead and add some questions now.')
         return redirect('teachers:quiz_change', quiz.pk)
+
+
 
 
 @method_decorator([login_required, teacher_required], name='dispatch')
@@ -121,6 +123,10 @@ class QuizResultsView(DetailView):
         return self.request.user.quizzes.all()
 
 
+
+
+
+
 @login_required
 @teacher_required
 def question_add(request, pk):
@@ -142,6 +148,29 @@ def question_add(request, pk):
         form = QuestionForm()
 
     return render(request, 'classroom/teachers/question_add_form.html', {'quiz': quiz, 'form': form})
+
+
+@login_required
+@teacher_required
+def video_add(request, pk):
+    
+    quiz = get_object_or_404(Quiz, pk=pk, owner=request.user)
+
+    if request.method == 'POST':
+        url = request.POST.get("video", "")
+        if url is not "":
+            video = Video()
+            video.quiz = quiz
+            video.url = url
+            video.save()
+            messages.success(request, 'You may play the video')
+            return redirect('teachers:quiz_change', quiz.pk)
+        
+
+    return render(request, 'classroom/teachers/video_add_form.html', {'quiz': quiz})
+
+
+
 
 
 @login_required
@@ -186,6 +215,8 @@ def question_change(request, quiz_pk, question_pk):
         'form': form,
         'formset': formset
     })
+
+
 
 
 @method_decorator([login_required, teacher_required], name='dispatch')
